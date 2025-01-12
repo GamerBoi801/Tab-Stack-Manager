@@ -1,36 +1,40 @@
-// background script for handling logic
+// event listener when the extension is installed
+chrome.runtime.onInstalled.addListener(() => {
+    // context menu that appears when the user right clicks anywhere in the browser
+    chrome.contextMenus.create({
+        id: 'saveTab',   // unique identifier for each menu item
+        title: 'Save this tab', // title shown in the right click menu
+        contexts: ['all'] // menu will be available in all contexts
+    });
+})
 
-// listen for when a tab is updated
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (changeInfo.status === 'complete') {
-        chrome.tabs.sendMessage(tabId, {message: 'tabUpdated', url: tab.url});
+// event listener for any context menu item
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+    if (info.menuItemId === "addToStack") { // check if the clicked menu item is addToStack
+        addToStack(tab); // func to add current tab to the stack
     }
 });
 
-// listens for clicks on the browser action icon
-chrome.browserAction.onClicked.addListener((tab) => {
-    console.log('browser action clicked'); 
-    // popup 
-    }
-); 
+// function to add the current tab to the stack
+function addToStack(tab) {
+    // retrieves the existing tab stacks from chrome's local storage
+    chrome.storage.local.get(['tabStack'], (result) => {
+        let tabStacks = result.tabStacks || [] // if no tabStacks exist, create an empty array
 
-// stack logic
-let tab_stack = {}; // obj to hold the stack
+        // creating a new tab object that contains the tab's title and URL
+        const newTab = {
+            title: tab.title,
+            url: tab.url,
+            timestamp: new Date().getTime() // timestamp to keep track of when the tab was added
 
-//function to add a tab to the stack
-function addToStack(StackName, tabId) {
-    if (!tab_stack[StackName]) {
-        tab_stack[StackName] = [];
-    }
+        };
 
-    tab_stack[StackName].push(tabId);
-    console.log('Tab ${tabId} added to stack ${StackName}');
+        // push the tab stack to the existing stack array
+        tabStacks.push(newTab);
+
+        // save the updated tav stack back to local storage
+        chrome.storage.local.set({tabStacks}, () => {
+            console.log("Tab added to stack: ", tab.title);
+    });
+});
 }
-
-// listen for messages from content script  
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action == 'getTabs') {
-        sendResponse({tabs: tabStacks});
-    }
-});
-
