@@ -1,0 +1,37 @@
+/*styles for the popup */
+body {
+    font-family: Arial, sans-serif;
+    width: 300px;  /* Set a width for the popup */
+    padding: 10px;
+    background-color: #f9f9f9;  /* Set a background color for the popup */
+}
+
+h3 {
+    font-size: 16px;
+    text-align: center;
+    color: #333;  /* Dark gray color for the header */
+    margin-bottom: 15px;
+}
+
+.tab-stack {
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;  /* Light gray border around each tab stack */
+}
+
+.tab-title {
+    font-weight: bold;
+    color: #333;  /* Dark color for the title */
+    margin-bottom: 5px;  /* Space below the title */
+}
+
+.tab-url a {
+    color: #0066cc;  /* Blue color for the link */
+    text-decoration: none;  /* Remove underline from link */
+}
+
+.tab-url a:hover {
+    text-decoration: underline;  /* Add underline on hover */
+}
