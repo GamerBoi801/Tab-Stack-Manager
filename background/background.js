@@ -1,40 +1,60 @@
-// event listener when the extension is installed
-chrome.runtime.onInstalled.addListener(() => {
-    // context menu that appears when the user right clicks anywhere in the browser
-    chrome.contextMenus.create({
-        id: 'saveTab',   // unique identifier for each menu item
-        title: 'Save this tab', // title shown in the right click menu
-        contexts: ['all'] // menu will be available in all contexts
-    });
-})
+// background.js: this script runs in the background, managing tab stack data and handling context menu interactions.
 
-// event listener for any context menu item
+// initialize the context menu for adding tabs to the stack
+chrome.runtime.onInstalled.addListener(() => {
+    // create a context menu item when right-clicking on a tab
+    chrome.contextMenus.create({
+        id: "add-to-stack",  // unique ID for the context menu item
+        title: "Add to Tab Stack",  // text shown in the right-click menu
+        contexts: ["tab"],  // only show the menu when right-clicking on a tab
+    });
+});
+
+// listen for a click on the "Add to Tab Stack" context menu
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-    if (info.menuItemId === "addToStack") { // check if the clicked menu item is addToStack
-        addToStack(tab); // func to add current tab to the stack
+    // check if the clicked item is the "Add to Tab Stack" context menu item
+    if (info.menuItemId === "add-to-stack") {
+        addToStack(tab);  // call the function to add the tab to the stack
     }
 });
 
-// function to add the current tab to the stack
+// function to add a tab to the stack
 function addToStack(tab) {
-    // retrieves the existing tab stacks from chrome's local storage
-    chrome.storage.local.get(['tabStack'], (result) => {
-        let tabStacks = result.tabStacks || [] // if no tabStacks exist, create an empty array
+    // retrieve existing tab stacks from chrome's local storage
+    chrome.storage.local.get(["tabStacks"], (result) => {
+        let tabStacks = result.tabStacks || [];  // if no stacks exist, initialize with an empty array
 
-        // creating a new tab object that contains the tab's title and URL
+        // create a new tab object with the necessary details
         const newTab = {
-            title: tab.title,
-            url: tab.url,
-            timestamp: new Date().getTime() // timestamp to keep track of when the tab was added
-
+            title: tab.title,  // tab title
+            url: tab.url,  // tab URL
+            timestamp: new Date().getTime(),  // timestamp of when the tab was added
         };
 
-        // push the tab stack to the existing stack array
-        tabStacks.push(newTab);
+        tabStacks.push(newTab);  // add the new tab to the tab stack
 
-        // save the updated tav stack back to local storage
-        chrome.storage.local.set({tabStacks}, () => {
-            console.log("Tab added to stack: ", tab.title);
+        // save the updated tab stack back to local storage
+        chrome.storage.local.set({ tabStacks }, () => {
+            console.log("tab added to stack:", tab.title);  // log a message for debugging
+        });
     });
-});
 }
+
+// listen for messages from the content script or popup to handle different actions
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "getTabStacks") {
+        // if the action is "getTabStacks", send the stored tab stacks back to the sender
+        chrome.storage.local.get(["tabStacks"], (result) => {
+            sendResponse(result.tabStacks || []);  // send the tab stacks or an empty array if none exist
+        });
+        return true;  // indicate that the response is asynchronous
+    }
+    
+    if (message.action === "clearTabStacks") {
+        // if the action is "clearTabStacks", clear all tab stacks from local storage
+        chrome.storage.local.set({ tabStacks: [] }, () => {
+            sendResponse({ success: true });  // send a success response back to the sender
+        });
+        return true;  // indicate that the response is asynchronous
+    }
+});
