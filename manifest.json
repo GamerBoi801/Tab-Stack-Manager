@@ -1,37 +1,35 @@
 {
   "manifest_version": 3,
   "name": "Tab Stack Manager",
-  "description": "Organize tabs into stacks and access them later.",
+  "description": "Manage and organize your browser tabs with ease.",
   "version": "1.0",
-
   "permissions": [
-    "tabs",
-    "storage",
-    "contextMenus",
-    "activeTab"
+      "tabs", 
+      "storage", 
+      "activeTab", 
+      "contextMenus"
   ],
-
   "background": {
-    "service_worker": "background/background.js"
+      "service_worker": "background/background.js"
   },
-
+  "content_scripts": [
+      {
+          "matches": ["<all_urls>"],
+          "js": ["content/content.js"]
+      }
+  ],
   "action": {
-    "default_popup": "popup/popup.html",
-    "default_icon": {
+      "default_popup": "popup/popup.html",
+      "default_icon": {
+          "16": "assets/images/icon16.png",
+          "48": "assets/images/icon48.png",
+          "128": "assets/images/icon128.png"
+      }
+  },
+  "options_page": "options/options.html",  
+  "icons": {
       "16": "assets/images/icon16.png",
       "48": "assets/images/icon48.png",
       "128": "assets/images/icon128.png"
-    }
-  },
-
-  "options_page": "options/options.html",  
-
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content/content.js"]
-    }
-  ],
-
-  "host_permissions": ["http://*/*", "https://*/*"]
+  }
 }
