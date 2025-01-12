@@ -19,14 +19,9 @@ TabStackManager/
 │   └── options.css               # CSS file for styling the options page
 │
 ├── assets/                       # Directory for static assets
-│   ├── images/                   # Directory for images used in the extension
-│   │   ├── icon16.png            # 16x16 icon image
-│   │   ├── icon48.png            # 48x48 icon image
-│   │   └── icon128.png           # 128x128 icon image
+│   ├── images/                   # Directory for images used in the extension   
 │   │ 
 │   └── animations/               # Directory for animation files (if any)
-│       ├── animation.css          # CSS file for animations (if using CSS animations)
-│       └── animation.js           # JavaScript file for handling animations (if needed)
 │       
 └── styles/                       # Directory for global stylesheets
     ├── main.css                  # Main CSS file for global styles
