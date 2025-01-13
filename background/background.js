@@ -7,7 +7,7 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
         id: "add-to-stack",  // unique ID for the context menu item
         title: "Add to Tab Stack",  // text shown in the right-click menu
-        contexts: ["tab"],  // only show the menu when right-clicking on a tab
+        contexts: ["page"],  // only show the menu when right-clicking on a tab
     });
 });
 
