@@ -2,6 +2,7 @@
 
 // initialize the context menu for adding tabs to the stack
 chrome.runtime.onInstalled.addListener(() => {
+    console.log('Extension installed or updated ');
     // create a context menu item when right-clicking on a tab
     chrome.contextMenus.create({
         id: "add-to-stack",  // unique ID for the context menu item
@@ -12,6 +13,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 // listen for a click on the "Add to Tab Stack" context menu
 chrome.contextMenus.onClicked.addListener((info, tab) => {
+    console.log("Context menu clicked", info, tab);
     // check if the clicked item is the "Add to Tab Stack" context menu item
     if (info.menuItemId === "add-to-stack") {
         addToStack(tab);  // call the function to add the tab to the stack
@@ -22,6 +24,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 function addToStack(tab) {
     // retrieve existing tab stacks from chrome's local storage
     chrome.storage.local.get(["tabStacks"], (result) => {
+        console.log("Tab stacks retrieved", result.tabStacks);
         let tabStacks = result.tabStacks || [];  // if no stacks exist, initialize with an empty array
 
         // create a new tab object with the necessary details
