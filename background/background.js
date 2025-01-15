@@ -3,7 +3,8 @@
 // initialize the context menu for adding tabs to the stack
 chrome.runtime.onInstalled.addListener(() => {
     console.log('Extension installed or updated ');
-    // create a context menu item when right-clicking on a tab
+    
+    // allows the user to add the tab item when right-clicking on a tab
     chrome.contextMenus.create({
         id: "add-to-stack",  // unique ID for the context menu item
         title: "Add to Tab Stack",  // text shown in the right-click menu
