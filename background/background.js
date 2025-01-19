@@ -61,4 +61,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         });
         return true;  // indicate that the response is asynchronous
     }
+    // option for removing a tab from the stack
+    if (message.action === "removeTab") {
+        // remove the specified tab from the stack
+        chrome.storage.local.get(["tabStacks"], (result) => {
+            let tabStacks = result.tabStacks || [];
+
+            // remove the tab at the specified index
+            if (message.index >= 0 && message.index < tabStacks.length) {
+                tabStacks.splice(message.index, 1);
+                chrome.storage.local.set({ tabStacks }, () => {
+                    sendResponse({ success: true });
+                });
+            } else {
+                sendResponse({ success: false });
+            }
+        });
+        return true; 
+    }
 });
