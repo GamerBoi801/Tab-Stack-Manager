@@ -1,0 +1,16 @@
+Features:
+• allows to add and remove tabs from the stack ✅
+• Enhanced User UI 
+• Stack Sharing( export a stack [list of url's])
+• Session Management(provide options to restore a stack as a tabs, later; save the entire Session)
+• Key board shortcut  to add or remove current tab from the stack
+• AUto Categorization( category suggestions for when adding a new tab). 
+• Categorization(organize stacks into categories, color coded labels or icons, drop down to filter os sort tabs by category)
+• Providing a backup and import option to export as JSON files.
+• ANalytics 
+
+Action Plan for Implementation
+Step 1: Focus on UI/UX enhancements (categorization, drag-and-drop, search bar).
+Step 2: Add persistent sync using chrome.storage.sync.
+Step 3: Implement batch session saving and stack restoration.
+Step 4: Introduce sharing/export features.
