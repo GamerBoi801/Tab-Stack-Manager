@@ -1,22 +1,22 @@
 TabStackManager/
 │
-├── manifest.json                # The main manifest file for the Chrome extension
+├── manifest.json                # configuration file for chrome extension
 │
 ├── background/                   # Directory for background scripts
-│   └── background.js             # Background script handling events and logic
+│   └── background.js             # background tasks: listening to menu clicks and managing tab stacks
 │
 ├── content/                      # Directory for content scripts
-│   └── content.js                # Script that interacts with web pages
+│   └── content.js                # interaction with page content
 │
-├── popup/                        # Directory for the popup interface
-│   ├── popup.html                # HTML file for the popup UI
-│   ├── popup.js                  # JavaScript file for popup functionality
-│   └── popup.css                 # CSS file for styling the popup UI
+├── popup/                        #UI & functionality of extnesion popup
+│   ├── popup.html                
+│   ├── popup.js                  
+│   └── popup.css                 
 │
-├── options/                      # Directory for options/settings page
-│   ├── options.html              # HTML file for user settings interface
-│   ├── options.js                # JavaScript file for handling settings logic
-│   └── options.css               # CSS file for styling the options page
+├── options/                      # UI and functionality of     
+│   ├── options.html              # 
+│   ├── options.js                # 
+│   └── options.css               # 
 │
 ├── assets/                       # Directory for static assets
 │   ├── images/                   # Directory for images used in the extension   
