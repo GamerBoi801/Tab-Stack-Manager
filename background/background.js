@@ -1,82 +1,20 @@
-// background.js: this script runs in the background, managing tab stack data and handling context menu interactions.
-
-// initialize the context menu for adding tabs to the stack
-chrome.runtime.onInstalled.addListener(() => {
-    console.log('Extension installed or updated ');
-    
-    // allows the user to add the tab item when right-clicking on a tab
-    chrome.contextMenus.create({
-        id: "add-to-stack",  // unique ID for the context menu item
-        title: "Add to Tab Stack",  // text shown in the right-click menu
-        contexts: ["page"],  // only show the menu when right-clicking on a tab
-    });
+// context menu option for the extension
+chrome.contxtMenus.create({
+    id: "addToStack",  //unique id for the context menu
+    title: "Add to Stack", // txt shown in the context menu
+    context: ["page"]  //shows this option when right clciking on a page
 });
 
-// listen for a click on the "Add to Tab Stack" context menu
-chrome.contextMenus.onClicked.addListener((info, tab) => {
-    console.log("Context menu clicked", info, tab);
-    // check if the clicked item is the "Add to Tab Stack" context menu item
-    if (info.menuItemId === "add-to-stack") {
-        addToStack(tab);  // call the function to add the tab to the stack
-    }
-});
+//listens for clicks on the context menu
+chrome.contxtMenus.Onclicked.addListener((info, tab) => {
+    if (info.menuItemId === "addToStack") {
 
-// function to add a tab to the stack
-function addToStack(tab) {
-    // retrieve existing tab stacks from chrome's local storage
-    chrome.storage.local.get(["tabStacks"], (result) => {
-        console.log("Tab stacks retrieved", result.tabStacks);
-        let tabStacks = result.tabStacks || [];  // if no stacks exist, initialize with an empty array
-
-        // create a new tab object with the necessary details
-        const newTab = {
-            title: tab.title,  // tab title
-            url: tab.url,  // tab URL
-            timestamp: new Date().getTime(),  // timestamp of when the tab was added
-        };
-
-        tabStacks.push(newTab);  // add the new tab to the tab stack
-
-        // save the updated tab stack back to local storage
-        chrome.storage.local.set({ tabStacks }, () => {
-            console.log("tab added to stack:", tab.title);  // log a message for debugging
+        //adds the tab to the stack
+        chrome.storage.local.get({stacks: [] }, (data) => { //stores data locally in the browser and retrives the curren stacks
+            
+            const stacks = data.stacks // gets the current stacks
+            stacks.push({title: tab.title, url: tab.url}) // adds the new tab to the stacks
+            chrome.storage.local.set({stacks}) // saves the updated stacks
         });
-    });
-}
-
-// listen for messages from the content script or popup to handle different actions
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === "getTabStacks") {
-        // if the action is "getTabStacks", send the stored tab stacks back to the sender
-        chrome.storage.local.get(["tabStacks"], (result) => {
-            sendResponse(result.tabStacks || []);  // send the tab stacks or an empty array if none exist
-        });
-        return true;  // indicate that the response is asynchronous
-    }
-    
-    if (message.action === "clearTabStacks") {
-        // if the action is "clearTabStacks", clear all tab stacks from local storage
-        chrome.storage.local.set({ tabStacks: [] }, () => {
-            sendResponse({ success: true });  // send a success response back to the sender
-        });
-        return true;  // indicate that the response is asynchronous
-    }
-    // option for removing a tab from the stack
-    if (message.action === "removeTab") {
-        // remove the specified tab from the stack
-        chrome.storage.local.get(["tabStacks"], (result) => {
-            let tabStacks = result.tabStacks || [];
-
-            // remove the tab at the specified index
-            if (message.index >= 0 && message.index < tabStacks.length) {
-                tabStacks.splice(message.index, 1);
-                chrome.storage.local.set({ tabStacks }, () => {
-                    sendResponse({ success: true });
-                });
-            } else {
-                sendResponse({ success: false });
-            }
-        });
-        return true; 
     }
 });
