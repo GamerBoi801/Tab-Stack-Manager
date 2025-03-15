@@ -10,6 +10,20 @@ document.getElementById('retainStacks').addEventListener('change', (e) => {
     chrome.storage.local.set({ retainStacks: e.target.checked });
 });
 
+// dark mode toggle
+
+                // fix bugg #TODO
+document.getElementById("darkMode").addEventListener("change", (e) => {
+    document.body.classList.toggle("dark-mode", e.target.checked);
+    chrome.storage.local.set({ darkMode: e.target.checked });
+  });
+  
+  // loads dark mode preference
+  chrome.storage.local.get({ darkMode: false }, (data) => {
+    document.getElementById("darkMode").checked = data.darkMode;
+    document.body.classList.toggle("dark-mode", data.darkMode);
+  });
+
 // loads stack from the storage
 chrome.storage.local.get({ stacks: [] }, (data) => {
     const stacksDiv = document.getElementById("stacks"); // list of stacks
@@ -26,9 +40,11 @@ chrome.storage.local.get({ stacks: [] }, (data) => {
         stackElement.appendChild(faviconElement);
 
         // title
-        const titleElement = document.createElement("span");
+        const titleElement = document.createElement("a");
         titleElement.className = "title";
         titleElement.textContent = stack.title;
+        titleElement.href = stack.url;
+        titleElement.target = "_blank"; //opens the link in the new tab
         stackElement.appendChild(titleElement);
 
         // delete button for each stack

@@ -1,61 +1,135 @@
 body {
   width: 300px;
-  font-family: Helvetica, Arial,  sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #080707;
+  background-color: #ffffff;
   color: #333;
 }
 
-
+/* Header Styles */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 15px;
   background-color: #6200ee;
   color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
   margin: 0;
   font-size: 18px;
+  font-weight: 600;
 }
 
 .header button {
   background-color: #ff4081;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 .header button:hover {
   background-color: #e91e63;
 }
 
+.settings {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f5f5f5;
+}
+
+.settings label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+}
+
+.settings input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* tags for stacks */
+.tagging {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #ffffff;
+}
+
+.tagging input[type="text"] {
+  width: 60%;
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.tagging button {
+  padding: 8px 12px;
+  background-color: #6200ee;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.tagging button:hover {
+  background-color: #3700b3;
+}
+
+#tagsList {
+  margin-top: 10px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 5px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.tag.active {
+  background-color: #6200ee;
+  color: white;
+}
+
+/* stacks containers */
 .stacks-container {
   padding: 10px;
 }
 
+/* Stack Item Styles */
 .stack {
   background-color: white;
-  border: 1px solid #ddd;
+  border: 1px solid #e0e0e0;
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 10px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
 .stack:hover {
-  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.stack img {  /*styles 4 the small image in tab stack */
+.stack img {
   width: 16px;
   height: 16px;
   margin-right: 10px;
@@ -64,35 +138,84 @@ body {
 .stack .title {
   font-size: 14px;
   color: #333;
+  flex-grow: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.stack .title:hover {
+  color: #6200ee;
+  text-decoration: underline;
+}
+
+.stack .tags-container {
+  display: flex;
+  gap: 5px;
+  margin-left: 10px;
+}
+
+.stack .stack-tag {
+  padding: 4px 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #333;
 }
 
 .stack .delete {
   background-color: #ff4081;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 .stack .delete:hover {
-  background-color: #b82254;
+  background-color: #e91e63;
+}
+/* dark mode */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
 }
 
-/* settings section & checkbox */
-.settings {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  background-color: white;
+body.dark-mode .header {
+  background-color: #1f1f1f;
 }
 
-.settings label {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: #333; 
+body.dark-mode .settings {
+  background-color: #1f1f1f;
+  border-bottom-color: #333;
 }
 
-.settings input[type="checkbox"] {
-  margin-right: 10px;
+body.dark-mode .tagging {
+  background-color: #1f1f1f;
+  border-bottom-color: #333;
+}
+
+body.dark-mode .stack {
+  background-color: #1f1f1f;
+  border-color: #333;
+}
+
+body.dark-mode .stack .title {
+  color: #ffffff;
+}
+
+body.dark-mode .stack .stack-tag {
+  background-color: #333;
+  color: #ffffff;
+}
+
+body.dark-mode .tag {
+  background-color: #333;
+  color: #ffffff;
+}
+
+body.dark-mode .tag.active {
+  background-color: #6200ee;
+  color: white;
 }
