@@ -5,18 +5,23 @@
   <link rel="stylesheet" href="/popup/popup.css">
 </head>
 <body>
+  
   <div class="header">
     <h1>Tab Stacks</h1>
     <button id="clearStacks">Clear All</button>
   </div>
+  
   <div class="settings">
     <label>
-      <!-- retain stacks option to be added-->
+      <!-- option to retain stacks-->
+       <input type='checkbox' id='retainStacks' >Retain Stacks after session
     </label>
   </div>
+
   <div id="stacks" class="stacks-container">
     <!-- stacks will be dynamically added here -->
   </div>
   <script src="popup.js"></script>
+
 </body>
 </html>

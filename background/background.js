@@ -1,3 +1,10 @@
+//clears the stacks if retention is disabled
+chrome.storage.local.get({ retainStacks: false}, (data)  => {
+  if (!data.retainStacks) {
+    chrome.storage.local.set({ stacks: [] });
+  }
+});
+
 // context menu option
 chrome.contextMenus.create({
     id: "addToStack",

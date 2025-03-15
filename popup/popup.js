@@ -1,5 +1,15 @@
 // script that controls the popup UI when clicked upon the extension icon
 
+//loads the retention preferences when the popup is opened
+chrome.storage.local.get({ retainStacks: false}), (data) => {
+    document.getElementById("retainStacks").checked = data.retainStacks;
+};
+
+//saves the retention preference when option is changed
+document.getElementById('retainStacks').addEventListener('change', (e) => {
+    chrome.storage.local.set({ retainStacks: e.target.checked });
+});
+
 // loads stack from the storage
 chrome.storage.local.get({ stacks: [] }, (data) => {
     const stacksDiv = document.getElementById("stacks"); // list of stacks
