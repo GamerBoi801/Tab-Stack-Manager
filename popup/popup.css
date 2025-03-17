@@ -176,46 +176,81 @@ body {
 .stack .delete:hover {
   background-color: #e91e63;
 }
-/* dark mode */
+
+/* dark mode  */
+/* Dark Mode */
 body.dark-mode {
-  background-color: #121212;
+  background-color: #1e1e1e;
   color: #ffffff;
 }
 
 body.dark-mode .header {
-  background-color: #1f1f1f;
+  background-color: #2d2d2d;
+  color: #ffffff;
 }
 
 body.dark-mode .settings {
-  background-color: #1f1f1f;
-  border-bottom-color: #333;
+  background-color: #2d2d2d;
+  border-bottom-color: #444;
 }
 
 body.dark-mode .tagging {
-  background-color: #1f1f1f;
-  border-bottom-color: #333;
+  background-color: #2d2d2d;
+  border-bottom-color: #444;
+}
+
+body.dark-mode .tagging input[type="text"] {
+  background-color: #3d3d3d;
+  color: #ffffff;
+  border-color: #555;
+}
+
+body.dark-mode .tagging button {
+  background-color: #6200ee;
+  color: #ffffff;
+}
+
+body.dark-mode .tagging button:hover {
+  background-color: #3700b3;
+}
+
+body.dark-mode .tag {
+  background-color: #3d3d3d;
+  color: #ffffff;
+}
+
+body.dark-mode .tag.active {
+  background-color: #6200ee;
+  color: #ffffff;
 }
 
 body.dark-mode .stack {
-  background-color: #1f1f1f;
-  border-color: #333;
+  background-color: #2d2d2d;
+  border-color: #444;
 }
 
 body.dark-mode .stack .title {
   color: #ffffff;
 }
 
+body.dark-mode .stack .title:hover {
+  color: #bb86fc;
+}
+
+body.dark-mode .stack .tags-container {
+  background-color: transparent;
+}
+
 body.dark-mode .stack .stack-tag {
-  background-color: #333;
+  background-color: #3d3d3d;
   color: #ffffff;
 }
 
-body.dark-mode .tag {
-  background-color: #333;
+body.dark-mode .stack .delete {
+  background-color: #ff4081;
   color: #ffffff;
 }
 
-body.dark-mode .tag.active {
-  background-color: #6200ee;
-  color: white;
+body.dark-mode .stack .delete:hover {
+  background-color: #e91e63;
 }

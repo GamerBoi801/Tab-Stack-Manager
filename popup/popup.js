@@ -10,19 +10,19 @@ document.getElementById('retainStacks').addEventListener('change', (e) => {
     chrome.storage.local.set({ retainStacks: e.target.checked });
 });
 
-// dark mode toggle
-
-                // fix bugg #TODO
+/// toggling dark mode
+//       #TODO
 document.getElementById("darkMode").addEventListener("change", (e) => {
     document.body.classList.toggle("dark-mode", e.target.checked);
     chrome.storage.local.set({ darkMode: e.target.checked });
   });
   
-  // loads dark mode preference
+  // Loads the dark mode preference
   chrome.storage.local.get({ darkMode: false }, (data) => {
     document.getElementById("darkMode").checked = data.darkMode;
     document.body.classList.toggle("dark-mode", data.darkMode);
   });
+
 
 // loads stack from the storage
 chrome.storage.local.get({ stacks: [] }, (data) => {
@@ -64,6 +64,36 @@ chrome.storage.local.get({ stacks: [] }, (data) => {
         stacksDiv.appendChild(stackElement);
     });
 });
+
+// expor stacks
+document.getElementById('exportStacks').addEventListener('click', () => { 
+    //getting the stacks from storage
+    chrome.storage.local.get({ stacks: [] }, (data) => {
+        //converting the stack array into JSON strings
+        const jsonStrng = JSON.stringify(data.stacks, null, 2);
+
+        //creating a blob (binary large object) from the JSON string
+        const blob = new blob([jsonStrng], { type: "application/json" });
+
+        // creating a temp URL for the blob
+        const url = URL.createObjectURL(blob);
+
+        // creating hidden <a> element to trigger downlaod 
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "stacks.json" //set the filename;
+        a.style.display = "none"; 
+
+        // adding a elemnt to the DOM and triggering  click event
+        document.body.appendChild(a);
+        a.click();
+
+        // clean up by removing <a> element and revoking the URL
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+});
+
 
 // clears all the stacks
 document.getElementById("clearStacks").addEventListener("click", () => {
