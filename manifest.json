@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Tab Stack Manager",
     "version": "1.0",
-    "description": "Organize your tabs into stacks for easy access.",
+    "description": "Organize your tabs into stacks and categorizes them for easy access.",
     "permissions": ["tabs", "contextMenus", "storage"],
     "background": {
       "service_worker": "background/background.js"

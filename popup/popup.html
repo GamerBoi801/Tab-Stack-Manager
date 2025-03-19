@@ -2,31 +2,21 @@
 <html>
 <head>
   <title>Tab Stack Manager</title>
-  <link rel="stylesheet" href="/popup/popup.css">
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   
   <div class="header">
     <h1>Tab Stacks</h1>
-    <button id="clearStacks">Clear All</button>
+    <button id="clearStacks" class="clear-button">Clear All</button>
   </div>
   
   <div class="settings">
-    <label>
-      <!-- option to retain stacks-->
-       <input type='checkbox' id='retainStacks' >Retain Stacks after session
+    <label class="retain-label">
+      <input type="checkbox" id="retainStacks"> Retain stacks after session
     </label>
-
-    <!-- Dark mode option-->
-   <label>>
-    <input type='checkbox' id ="darkMode" >Dark Mode
-  </label>
-
-  <!-- Export option-->
-   <button id=""exportStacks">Export Stacks</button>
-  
   </div>
-
+  
   <div id="stacks" class="stacks-container">
     <!-- stacks will be dynamically added here -->
   </div>
