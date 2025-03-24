@@ -17,6 +17,14 @@ With this extension, you can:
 - **User-Friendly Interface**: Simple and intuitive design for seamless use.
 ---
 
+## The Problem it solves
+Problem: Too many open tabs clutter your browser, slow it down, and make it hard to find what you need. Bookmarking feels too permanent, and losing tabs when you close your browser is frustrating.
+
+Solution: Tab Stack Manager lets you organize tabs into stacks, save them for later without bookmarking, and choose whether to keep them after closing your browser. It’s lightweight, fast, and perfect for decluttering while keeping your browsing smooth and organized.
+
+Unique: Unlike bookmarking or heavy tab managers, it’s simple, flexible, and designed for temporary tab storage without slowing you down.
+
+
 ## Installation
 1. **Download the extension**:
    - Clone this repository using the following command 
